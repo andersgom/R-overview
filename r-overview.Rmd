@@ -1,0 +1,51 @@
+---
+title: "R Notebook - R Overview"
+output: html_notebook
+---
+<br>
+Loading our packages:
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+<br>
+Loading a dataset:
+```{r}
+data('diamonds')
+```
+<br>
+Let's check it:
+```{r}
+head(diamonds)
+glimpse(diamonds)
+```
+<br>
+Exploratory Data Analysis
+```{r}
+summary(diamonds)
+```
+<br>
+Grouping by color
+```{r}
+diamonds%>%
+  group_by(color)%>%
+  summarize(mean_price_color = mean(diamonds$price), max_price_color = max(diamonds$price), min_price_color = min(diamonds$price))
+```
+<br>
+Let's plot our data!
+```{r}
+diamonds%>%
+  group_by(color)%>%
+  ggplot(mapping = aes(x = color, fill=color))+geom_bar()+labs(title = "Number of diamonds by color")
+```
+```{r}
+ggplot(diamonds, mapping = aes(x=carat, y=price, color=price))+geom_point()+labs(title = "Price by carat")
+```
+Let's plot the linear regression between `carat` and `price`
+```{r}
+ggplot(diamonds, mapping = aes(x=carat, y=price, color=price))+geom_point()+labs(title = "Price by carat", subtitle="With the linear regression")+stat_smooth(method='lm', color='red')
+```
+
+
+
+
